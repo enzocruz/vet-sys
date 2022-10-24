@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Animals";
+}
+
+@model IEnumerable<Vet.Web.Models.Breeds>
+<div class="row">
+    <div class="col-md-12">
+         <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Create">Breeds</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+           <tr>
+                <th>Breeds</th>
+                <th>Animal</th>
+                
+           </tr>
+           <tbody>
+                 @foreach (var items in Model)
+                {
+                    <tr>
+                        <td>@items.Name</td>
+                        <td>@items.Animal.Name</td>
+                    </tr>
+                }
+           </tbody>
+          
+        </table>
+    </div>
+</div>
