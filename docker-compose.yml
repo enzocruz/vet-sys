@@ -7,7 +7,7 @@ services:
     container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: app_dbß
+      MYSQL_DATABASE: app_db
       MYSQL_USER: vet
       MYSQL_PASSWORD: password
     ports:

@@ -1,19 +1,22 @@
 @{
-    ViewData["Title"] = "Animals";
+    ViewData["Title"] = "Breeds";
+    ViewData["Page"]="Animal";
 }
 
 @model IEnumerable<Vet.Web.Models.Breeds>
 <div class="row">
     <div class="col-md-12">
-         <a class="nav-link text-dark" asp-area="" asp-controller="Animal" asp-action="Create">Breeds</a>
+         <a class="btn btn-outline-success"  asp-controller="Animal" asp-action="Create">Add Breeds</a>
     </div>
 </div>
+<br/>
 <div class="row">
     <div class="col-md-12">
         <table class="table table-striped">
            <tr>
                 <th>Breeds</th>
                 <th>Animal</th>
+                
                 
            </tr>
            <tbody>
@@ -22,6 +25,7 @@
                     <tr>
                         <td>@items.Name</td>
                         <td>@items.Animal.Name</td>
+                        
                     </tr>
                 }
            </tbody>
@@ -29,3 +33,4 @@
         </table>
     </div>
 </div>
+

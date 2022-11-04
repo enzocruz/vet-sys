@@ -1,0 +1,78 @@
+@model Vet.Web.Models.ViewModels.AnimalViewModel
+<div class="modal" tabindex="-1" id="animal-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Animal Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="form" id="animalForm" asp-action="AnimalCreate" asp-controller="Animal">
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="" class="form-label">Name</label>
+                <input type="text" class="form-control" name="Name" value="@Model.Name"/>    
+                <span asp-validation-for="Name" id="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  
+  $(function(){
+    
+    var toastLive = document.getElementById('liveToast')
+    var toast = new bootstrap.Toast(toastLive)
+    function close(){
+      $("input").val("");
+      $("#Name").html("");
+    }
+    var myModalEl = document.getElementById('animal-modal')
+    var modal = bootstrap.Modal.getInstance(myModalEl)
+    myModalEl.addEventListener('hidden.bs.modal', function (event) {
+      close();
+     
+      
+    })
+     $("#animalForm").on("submit",function(){
+    event.preventDefault();
+    
+    $.ajax({
+                type: "POST",
+                url: this.action,
+                data:  $("#animalForm").serialize(),
+                success: function(data) {
+                    
+                    if(data.success==false){
+                      data.errors.forEach(function(value){
+                        
+                          var str="<ul>"
+                          value.msg.forEach(function(value){
+                            str+="<li>"+value.errorMessage+"</li>"
+                          });
+                          str+="</ul>"
+                          $("#"+value.key).html(str);
+                          $("#"+value.key).show();
+                      })
+                    }else{
+                      toast.show();
+                      modal.hide();
+                      console.log(data.data);
+                      $("#AnimalID").append(new Option(data.data.name, data.data.id,null,true));
+                    }
+                },
+                error: function(data) {
+                    
+                  
+                }
+            });
+  });
+  })
+</script>
+

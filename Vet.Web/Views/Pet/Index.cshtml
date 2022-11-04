@@ -1,0 +1,49 @@
+
+@{
+    ViewData["Title"] = "Pets";
+    
+}
+@model IEnumerable<Vet.Web.Models.Pets>;
+<div class="row">
+    <div class="col-md-12">
+         <a class="btn btn-outline-success"  asp-controller="Pet" asp-action="Create">Create new Pets</a>
+    </div>
+</div>
+
+<br>
+<div class="continer-fluid">
+    <h3>Pets</h3>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+           <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Birthday</th>
+                <th>Owner</th>
+                <th>Breed</th>
+                <th>Last Checkup</th>
+                
+           </tr>
+           <tbody>
+               @foreach (var item in Model)
+               {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Age</td>
+                        <td>@item.Sex</td>
+                        <td>@item.DOB</td>
+                        <td>@item.Owner.Name</td>
+                        <td>@item.Breed.Name</td>
+                        <td>@item.MedicalHistory.FirstOrDefault()?.CreatedDate</td>
+                    </tr>
+               }
+           </tbody>
+          
+        </table>
+        </div>
+    </div>
+
+</div>

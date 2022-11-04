@@ -1,0 +1,88 @@
+@model Vet.Web.Models.ViewModels.OwnerViewModel
+<div class="modal" tabindex="-1" id="owner-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Owner Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="form" id="ownerForm" asp-action="OwnerCreate" asp-controller="Pet">
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="" class="form-label">Name</label>
+                <input type="text" class="form-control" name="Name" value="@Model.Name"/>    
+                <span asp-validation-for="Name" id="Name" class="text-danger"></span>
+            </div>
+             <div class="mb-3">
+                <label for="" class="form-label">Address</label>
+                <input type="text" class="form-control" name="Address" value="@Model.Address"/>    
+                <span asp-validation-for="Address" id="Address" class="text-danger"></span>
+            </div>
+             <div class="mb-3">
+                <label for="" class="form-label">Contact Number</label>
+                <input type="text" class="form-control" name="ContactNumber" value="@Model.ContactNumber"/>    
+                <span asp-validation-for="ContactNumber" id="ContactNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  
+  $(function(){
+    
+    var toastLive = document.getElementById('liveToast')
+    var toast = new bootstrap.Toast(toastLive)
+    function close(){
+      $("input").val("");
+      $("#Name").html("");
+    }
+    var myModalEl = document.getElementById('owner-modal')
+    var modal = bootstrap.Modal.getInstance(myModalEl)
+    myModalEl.addEventListener('hidden.bs.modal', function (event) {
+      close();
+     
+      
+    })
+     $("#ownerForm").on("submit",function(){
+    event.preventDefault();
+    
+    $.ajax({
+                type: "POST",
+                url: this.action,
+                data:  $("#ownerForm").serialize(),
+                success: function(data) {
+                    
+                    if(data.success==false){
+                      data.errors.forEach(function(value){
+                        
+                          var str="<ul>"
+                          value.msg.forEach(function(value){
+                            str+="<li>"+value.errorMessage+"</li>"
+                          });
+                          str+="</ul>"
+                          $("#"+value.key).html(str);
+                          $("#"+value.key).show();
+                      })
+                    }else{
+                      toast.show();
+                      modal.hide();
+                      console.log(data.data);
+                      $("#OwnerID").append(new Option(data.data.name, data.data.id,null,true));
+                    }
+                },
+                error: function(data) {
+                    
+                  
+                }
+            });
+  });
+  })
+</script>
+
