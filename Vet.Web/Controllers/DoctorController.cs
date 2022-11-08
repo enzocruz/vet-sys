@@ -19,7 +19,13 @@ namespace Vet.Web.Controllers
         }
         public IActionResult Index()
         {
+
+           // if (page<1)
+             //   page=1;
+            //var pageLimit=1;
             var model=_db.Doctors.ToList();
+            //int PageCount=(model.Count()/pageLimit);
+
             return View(model);
         }
         [HttpGet]

@@ -1,7 +1,8 @@
 
 @{
     ViewData["Title"] = "Pets";
-    
+    Vet.Web.Models.ViewModels.PageViewModel pageViewModel=ViewBag.PageViewModel;
+
 }
 @model IEnumerable<Vet.Web.Models.Pets>;
 <div class="row">
@@ -11,10 +12,15 @@
 </div>
 
 <br>
+<h3>Pets</h3>
+<br>
+@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
 <div class="continer-fluid">
-    <h3>Pets</h3>
-    <br>
+   
+     
+
     <div class="row">
+       
         <div class="col-md-12">
             <table class="table table-striped">
            <tr>
@@ -47,3 +53,6 @@
     </div>
 
 </div>
+@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+
+

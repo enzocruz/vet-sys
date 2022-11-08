@@ -16,15 +16,27 @@ namespace Vet.Web.Controllers
         public PetController(VetDBContext db){
             _db=db;
         }
-        public IActionResult Index()
-        {
+        public IActionResult Index(int page=1)
+        {   
+            const int pagesize=1;
+            if(page<1)
+                page=1;
+            
+
             var pets=_db.Pets
             .Include(b=>b.Breed)
             .ThenInclude(a=>a.Animal)
             .Include(f=>f.Owner)
             .Include(f=>f.MedicalHistory)
             .ToList();
-            return View(pets);
+            int listcount=pets.Count();
+
+            Pager pager=new Pager(listcount,page,pagesize);
+           
+            int skip=(page-1)*pagesize;
+            ViewBag.PageViewModel=new PageViewModel(pager,"Index","Pet");
+            
+            return View(pets.Skip(skip).Take(pagesize).ToList());
         }
         [HttpGet]
         public IActionResult Create(){
