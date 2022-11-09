@@ -7,20 +7,17 @@ public class History{
 
     [Required]
     public string Diagnosis {get;set;}
-
+    [Required]
     public int DoctorId{get;set;}
 
   
 
     public double Temperature{get;set;}
 
-    public int? ItemID{get;set;}
-
+    
+    [MaxLength(255,ErrorMessage ="You have exceed the maximum characters.")]
     public string? Hydration{get;set;}
-    [MaxLength(255)]
-
-    public string? Vacination{get;set; }
-
+ 
     public Doctor Vet{get;set;}
     [Timestamp]
      public DateTime CreatedDate{get;set;}=DateTime.Now;

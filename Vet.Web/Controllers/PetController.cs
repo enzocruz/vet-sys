@@ -18,7 +18,7 @@ namespace Vet.Web.Controllers
         }
         public IActionResult Index(int page=1)
         {   
-            const int pagesize=1;
+            const int pagesize=10;
             if(page<1)
                 page=1;
             

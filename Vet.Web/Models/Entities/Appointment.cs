@@ -5,6 +5,9 @@ public class Appointment{
     [Key]
     public int Id { get; set; }
 
+    [Required]
+    public string Name{get;set;}
+    [Required]
     public DateTime AppointmentDate{get;set;}
  
     public string Reason{get;set;}
