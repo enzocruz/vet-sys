@@ -1,17 +1,19 @@
-@model Vet.Web.Models.ViewModels.PetsCreateViewModel
+@model Vet.Web.Models.ViewModels.EditPetsViewModel
+
+
 @{
-    ViewData["Title"]="Add Pets";
+    ViewData["Title"]="Edit Pets";
     ViewData["Page"]="Pets";
 }
 @section styles{
 <link rel="stylesheet" href="~/lib/selectjs/dist/css/select2.min.css" />
 }
-<h3>Breed Forms</h3>
+<h3>Pets</h3>
 <br>
 <div class="container">
         <div class="row">
-            
-            <form asp-action="Create" method="post" asp-controller="Pet" >
+            <form asp-action="Edit" method="post" asp-controller="Pet" >
+            <input type="hidden" name="Id" value="@Model.Id" />
             <div class="mb-3">
                 <label for="" class="form-label">Name</label>
                 <input type="text" class="form-control" name="Name" value="@Model.Name"/>    
@@ -23,7 +25,7 @@
                     <div class="col-md-10">
                         <select name="BreedID" class="form-control select" id="BreedID" 
                         data-show-subtext="true" data-live-search="true"
-                        asp-items='@(new SelectList(Model.Breeds,"Id", "Name"))'
+                        asp-items='@(new SelectList(Model.Breeds,"Id", "Name",Model.BreedID))'
                         ></select>
                     </div>
                     
@@ -43,15 +45,13 @@
             <div class="mb-3">
                 <label for="formGroupExampleInput2" class="form-label">Owner</label>
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-12">
                         <select name="OwnerID" class="form-control select" id="OwnerID" 
                         data-show-subtext="true" data-live-search="true"
-                        asp-items='@(new SelectList(Model.Owners,"Id", "Name"))'
+                        asp-items='@(new SelectList(Model.Owners,"Id", "Name",Model.OwnerID))'
                         ></select>
                     </div>
-                    <div class="col-md-2">
-                        <div class="btn btn-outline-primary" id="add-owner">Add Owner</div>
-                    </div>
+                  
                 </div>
                 
                 <span asp-validation-for="OwnerID" class="text-danger"></span>
@@ -59,7 +59,7 @@
             </div>
             <div class="mb-3">
                 <label for="formGroupExampleInput2" class="form-label">Date Of Birth</label>
-                <input type="date" class="form-control" name="DOB" value="@Model.DOB"/>
+                <input type="date" class="form-control" name="DOB" value="@Model.S_DOB"/>
                 
                 <span asp-validation-for="DOB" class="text-warning"></span>
                 
@@ -71,7 +71,6 @@
                 <span asp-validation-for="Age" class="text-warning"></span>
                 
             </div>
-            <div asp-validation-summary="All" class="text-danger"></div>  
             <div class="mb-3">
                 <button class="btn btn-success" type="submit">Save </button>
             </div>
@@ -108,5 +107,8 @@
        
     </script>
 }
+
+
+
 
 

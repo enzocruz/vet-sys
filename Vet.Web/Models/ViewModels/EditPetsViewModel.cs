@@ -1,9 +1,13 @@
 namespace Vet.Web.Models.ViewModels;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-public class PetsCreateViewModel{
+public class EditPetsViewModel{
+
+    [Required]
+    public int Id { get; set; }
     [Required(ErrorMessage ="Name is required")]
     [MaxLength(100,ErrorMessage ="Name max lenght is only 100 characters")]
+   
     public string Name { get; set; }
     [Required(ErrorMessage ="Breed is required")]
     public int BreedID{get;set;}

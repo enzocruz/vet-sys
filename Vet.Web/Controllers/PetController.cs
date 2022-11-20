@@ -48,21 +48,29 @@ namespace Vet.Web.Controllers
         }
         [HttpPost]
         public IActionResult Create(PetsCreateViewModel model){
+            model.Owners=_db.Owners.ToList();
+            model.Breeds=_db.Breeds.ToList();
             if(!ModelState.IsValid){
-                model.Owners=_db.Owners.ToList();
-                model.Breeds=_db.Breeds.ToList();
+                
                 return View(model);
             }else{
                 var pet =new Pets(){
                     Name=model.Name
                     ,Age=model.Age
-                    ,BreedID=model.BreedID
-                    ,OwnerID=model.OwnerID
+                   // ,BreedID=model.BreedID
+                    //,OwnerID=model.OwnerID
                     ,DOB=model.DOB
                     ,Sex=model.Sex
                 };
-                _db.Pets.Add(pet);
-                _db.SaveChanges();
+               
+                
+               try{
+                    _db.Pets.Add(pet);
+                    _db.SaveChanges();
+               }catch (Exception ex){
+                    ModelState.AddModelError("Exception",ex.InnerException.Message);
+                    return View(model);
+               }
                 return RedirectToAction("Index");
             }
             
@@ -82,6 +90,50 @@ namespace Vet.Web.Controllers
         }
         
         return Json(new {Success=true,Data=data});
+        }
+        [HttpGet]
+        public IActionResult Edit(int id){
+            EditPetsViewModel model=new EditPetsViewModel();
+            var r=_db.Pets.Where(f=>f.Id==id)
+                .Select(f=>new EditPetsViewModel(){
+                   Name=f.Name
+                   ,Id=f.Id
+                    ,Age=f.Age
+                    ,BreedID=f.BreedID
+                    ,OwnerID=f.OwnerID
+                    ,DOB=f.DOB
+                    ,Sex=f.Sex
+                })
+                .FirstOrDefault();
+            if(r!=null){
+                model=r;
+            }
+            model.Breeds=_db.Breeds.ToList();
+            model.Owners=_db.Owners.ToList();
+           
+            return View(model);
+
+        }
+        [HttpPost]
+        public IActionResult Edit(EditPetsViewModel model){
+            if(ModelState.IsValid){
+                var p=_db.Pets.Find(model.Id);
+              
+                if(p!=null){
+                    p.Name=model.Name;
+                    p.Age=model.Age;
+                    p.BreedID=model.BreedID;
+                    p.DOB=model.DOB;
+                    p.OwnerID=model.OwnerID;
+                   
+                    _db.Pets.Update(p);
+                    _db.SaveChanges();
+                }
+            }
+            model.Breeds=_db.Breeds.ToList();
+            model.Owners=_db.Owners.ToList();
+            return RedirectToAction("Index");
+           
         }
     }
 }

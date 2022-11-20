@@ -10,7 +10,7 @@ public class Pets{
     
     public Int16 Sex{get;set;}
     
-    public DateOnly DOB{get;set;}
+    public DateTime DOB{get;set;}
 
     public int OwnerID{get;set;}
     
@@ -23,5 +23,13 @@ public class Pets{
     public ICollection<History> MedicalHistory{get;set;}
     [Timestamp]
      public DateTime CreatedDate{get;set;}=DateTime.Now;
+
+     public string S_DOB {
+    get{
+        if(DOB!=null){
+            return DOB.ToString("yyy-MM-dd");
+        }
+        return "";
+    }}
 
 }
