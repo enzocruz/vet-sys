@@ -16,13 +16,11 @@ namespace Vet.Web.Controllers
         public PetController(VetDBContext db){
             _db=db;
         }
-        public IActionResult Index(int page=1)
+        public IActionResult Index(int page=1,string search="")
         {   
             const int pagesize=10;
             if(page<1)
                 page=1;
-            
-
             var pets=_db.Pets
             .Include(b=>b.Breed)
             .ThenInclude(a=>a.Animal)
@@ -30,11 +28,9 @@ namespace Vet.Web.Controllers
             .Include(f=>f.MedicalHistory)
             .ToList();
             int listcount=pets.Count();
-
             Pager pager=new Pager(listcount,page,pagesize);
-           
             int skip=(page-1)*pagesize;
-            ViewBag.PageViewModel=new PageViewModel(pager,"Index","Pet");
+            ViewBag.PageViewModel=new PageViewModel(pager,"Index","Pet",search);
             
             return View(pets.Skip(skip).Take(pagesize).ToList());
         }
@@ -57,8 +53,8 @@ namespace Vet.Web.Controllers
                 var pet =new Pets(){
                     Name=model.Name
                     ,Age=model.Age
-                   // ,BreedID=model.BreedID
-                    //,OwnerID=model.OwnerID
+                    ,BreedID=model.BreedID
+                    ,OwnerID=model.OwnerID
                     ,DOB=model.DOB
                     ,Sex=model.Sex
                 };
@@ -76,7 +72,7 @@ namespace Vet.Web.Controllers
             
         }
         public IActionResult OwnerCreate(OwnerViewModel model){
-        Models.Owners data=new Models.Owners(){
+            Models.Owners data=new Models.Owners(){
                 Name=model.Name
                 ,ContactNumber=model.ContactNumber
                 ,Address=model.Address
@@ -93,6 +89,10 @@ namespace Vet.Web.Controllers
         }
         [HttpGet]
         public IActionResult Edit(int id){
+            string source_url= "";
+            if( Request.GetTypedHeaders().Referer!=null){
+                source_url= Request.GetTypedHeaders().Referer.ToString();
+            }
             EditPetsViewModel model=new EditPetsViewModel();
             var r=_db.Pets.Where(f=>f.Id==id)
                 .Select(f=>new EditPetsViewModel(){
@@ -110,28 +110,39 @@ namespace Vet.Web.Controllers
             }
             model.Breeds=_db.Breeds.ToList();
             model.Owners=_db.Owners.ToList();
-           
+            model.SourceURL=source_url;
             return View(model);
 
         }
         [HttpPost]
         public IActionResult Edit(EditPetsViewModel model){
-            if(ModelState.IsValid){
-                var p=_db.Pets.Find(model.Id);
-              
-                if(p!=null){
-                    p.Name=model.Name;
-                    p.Age=model.Age;
-                    p.BreedID=model.BreedID;
-                    p.DOB=model.DOB;
-                    p.OwnerID=model.OwnerID;
-                   
-                    _db.Pets.Update(p);
-                    _db.SaveChanges();
+            
+            
+            try{
+                if(ModelState.IsValid){
+                    var p=_db.Pets.Find(model.Id);
+                
+                    if(p!=null){
+                        p.Name=model.Name;
+                        p.Age=model.Age;
+                        p.BreedID=model.BreedID;
+                        p.DOB=model.DOB;
+                        p.OwnerID=model.OwnerID;
+                    
+                        _db.Pets.Update(p);
+                        _db.SaveChanges();
+                    }
                 }
+                model.Breeds=_db.Breeds.ToList();
+                model.Owners=_db.Owners.ToList();
+            }catch(Exception ex){
+                ModelState.AddModelError("Exception",ex.InnerException.Message);
+                return View(model);
             }
-            model.Breeds=_db.Breeds.ToList();
-            model.Owners=_db.Owners.ToList();
+            Console.WriteLine("URL:"+model.SourceURL);
+            if(!string.IsNullOrEmpty(model.SourceURL) && !string.IsNullOrWhiteSpace(model.SourceURL)){
+                return Redirect(model.SourceURL);
+            }
             return RedirectToAction("Index");
            
         }

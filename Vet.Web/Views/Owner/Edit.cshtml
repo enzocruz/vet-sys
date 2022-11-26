@@ -1,48 +1,98 @@
 @model Vet.Web.Models.ViewModels.EditOwnerViewModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Edit";
+    ViewData["Page"]="Owner";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-             <input asp-for="Id" type="hidden" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+<h3>Owner</h3>
+
+<div class="container">
+        <div class="row">
+            <form asp-action="Edit" method="post" asp-controller="Owner" >
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <div class="mb-3">
+                <label for="" class="form-label">Name</label>
+                <input type="text" class="form-control" name="Name" value="@Model.Name"/>    
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
+            <div class="mb-3">
+                <label for="" class="form-label">Address</label>
+                <input type="text" class="form-control" name="Address" value="@Model.Address"/>    
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ContactNumber" class="control-label"></label>
-                <input asp-for="ContactNumber" class="form-control" />
+
+            <div class="mb-3">
+                <label for="" class="form-label">Contact Number</label>
+                <input type="text" class="form-control" name="ContactNumber" 
+                value="@Model.ContactNumber"/>    
                 <span asp-validation-for="ContactNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+            <div class="mb-3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Bread</th>
+                            <th>Age</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Pets)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Breed.Name</td>
+                                <td>@item.Age</td>
+                                <td>
+                                    <a asp-action="Edit" asp-controller="Pet"
+                                        asp-route-id="@item.Id"
+                                        class="btn btn-outline-success">
+                                            Edit
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+           
+           
+          
+            <div class="mb-3">
+                <button class="btn btn-outline-success" type="submit">Save </button>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      
+      <strong class="me-auto">Added a new records</strong>
+      
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      You've successfully added a record.
+    </div>
+  </div>
 </div>
+@section Scripts{
+  
+    <script>
+       
+       
+    </script>
+}
 
-</body>
-</html>
+
+
+
+
+

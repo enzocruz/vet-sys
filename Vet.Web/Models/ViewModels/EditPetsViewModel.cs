@@ -1,7 +1,7 @@
 namespace Vet.Web.Models.ViewModels;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-public class EditPetsViewModel{
+public class EditPetsViewModel:EditViewModel{
 
     [Required]
     public int Id { get; set; }

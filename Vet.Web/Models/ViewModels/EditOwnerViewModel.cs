@@ -10,5 +10,6 @@ public class EditOwnerViewModel{
     public string Address{get;set;}
    [MaxLength(20)]
     public string ContactNumber{get;set;}
-   
+    [ValidateNever]
+    public List<Pets>Pets{get;set;}
 }

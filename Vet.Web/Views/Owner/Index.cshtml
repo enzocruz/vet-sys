@@ -1,0 +1,51 @@
+@{
+    ViewData["Title"] = "Owners";
+    ViewData["Page"]="Owner";
+    Vet.Web.Models.ViewModels.PageViewModel pageViewModel=ViewBag.PageViewModel;
+}
+
+@model IEnumerable<Vet.Web.Models.Owners>
+
+<br/>
+
+@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+<br/>
+
+@Html.Partial("~/Views/Shared/SearchPartialView.cshtml",pageViewModel)
+<div class="row">
+   
+    <div class="col-md-12">
+        <table class="table table-striped">
+           <tr>
+                <th>&nbsp;</th>
+                <th>Owner</th>
+                <th>Adress</th>
+                <th>Contact Number</th>
+                <tH>Pet Count</tH>
+                <th>&nbsp;</th>
+           </tr>
+           <tbody>
+                 @foreach (var items in Model.Select((f,index)=>new {index=index,item=f}))
+                {
+                    <tr>
+                        <td>@Html.Raw( items.index+1)</td>
+                        <td>@items.item.Name</td>
+                        <td>@items.item.Address</td> 
+                        <td>@items.item.ContactNumber</td>
+                        <td>@items.item.Pets?.Count()</td>
+                        <td>
+                            <a class="btn btn-outline-success" asp-action="Edit"
+                            asp-controller="Owner" asp-route-id="@items.item.Id">Edit</a>
+                        </td>
+                    </tr>
+                }
+           </tbody>
+          
+        </table>
+    </div>
+</div>
+
+<br/>
+
+@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+<br/>

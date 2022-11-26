@@ -17,8 +17,6 @@ public class Pager{
 
     public Pager(int ItemCount,int page,int pagesize=10){
         this.PageSize=pagesize;
-    
-        
         this.TotalPages=(int)Math.Ceiling((decimal)ItemCount/(decimal)PageSize);
         int currentpage=page;
         int startPage=currentpage-5;

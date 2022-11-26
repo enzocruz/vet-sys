@@ -12,11 +12,13 @@
                     <li class="page-item">
                         <a class="page-link" asp-action="@Model.PageAction" 
                         asp-controller="@Model.PageController" 
+                          asp-route-search="@Model.Search"
                         asp-route-page="1">First</a>
                     </li>
                     <li class="page-item">
                         <a class="page-link" asp-action="@Model.PageAction" 
                         asp-controller="@Model.PageController" 
+                         asp-route-search="@Model.Search"
                         asp-route-page="@pager.PreviousPage">Previous</a>
                     </li>
                 }
@@ -24,16 +26,21 @@
                 @for (int i = pager.StartPage; i <=pager.Endpage; i++)
                 {
                     <li class='page-item @Html.Raw(i==@pager.CurrentPage?"active":"")'>
-                        <a class="page-link" asp-action="@Model.PageAction" asp-controller="@Model.PageController" asp-route-page="@i">@i</a>
+                        <a class="page-link" asp-action="@Model.PageAction" 
+                         asp-route-search="@Model.Search"
+                        asp-controller="@Model.PageController" asp-route-page="@i">@i</a>
                     </li>
                 }
                 @if(pager.NextPage<=pager.TotalPages){
                     <li class="page-item">
-                        <a class="page-link" asp-action="@Model.PageAction" asp-controller="@Model.PageController" 
+                        <a class="page-link" asp-action="@Model.PageAction" 
+                        asp-controller="@Model.PageController" 
+                          asp-route-search="@Model.Search"
                         asp-route-page="@pager.NextPage">Next</a>
                     </li>
                      <li class="page-item">
                         <a class="page-link" asp-action="@Model.PageAction" asp-controller="@Model.PageController" 
+                             asp-route-search="@Model.Search"
                         asp-route-page="@pager.TotalPages">Last</a>
                     </li>
                 }

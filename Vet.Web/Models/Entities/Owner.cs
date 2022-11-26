@@ -11,4 +11,6 @@ public class Owners{
     public string ContactNumber{get;set;}
     [Timestamp]
      public DateTime CreatedDate{get;set;}=DateTime.Now;
+
+     public List<Pets> Pets{get;set;}
 }
