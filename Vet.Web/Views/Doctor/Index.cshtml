@@ -1,7 +1,9 @@
 @model IEnumerable<Vet.Web.Models.Doctor>
 @{
-   // ViewData["Title"] = "Index";
-   // Layout = "/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Doctor";
+    ViewData["Page"]="Doctor";
+    Vet.Web.Models.ViewModels.PageViewModel pageViewModel=ViewBag.PageViewModel;
+
 }
 <h3>Doctors</h3>
 <div class="row">
@@ -10,6 +12,11 @@
     </div>
 </div>
 <br/>
+
+@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+<br/>
+
+@Html.Partial("~/Views/Shared/SearchPartialView.cshtml",pageViewModel)
 <div class="row">
     <div class="col-md-12">
         <table class="table table-striped">
@@ -18,8 +25,7 @@
                 <th>Address</th>
                 <th>License</th>
                 <th>Contact Number</th>
-                
-                
+                <th>&nbsp;</th>
            </tr>
            <tbody>
                  @foreach (var items in Model)
@@ -29,7 +35,14 @@
                         <td>@items.Address</td>
                         <td>@items.License</td>
                         <td>@items.Number</td>
-                        
+                        <td>
+                            <a asp-action="Edit" asp-controller="Doctor"
+                                asp-route-id="@items.Id"
+                                class="btn btn-outline-success"
+                            >
+                                Edit
+                            </a>
+                        </td>
                     </tr>
                 }
            </tbody>
@@ -38,4 +51,7 @@
     </div>
 </div>
 
+<br/>
 
+@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+<br/>

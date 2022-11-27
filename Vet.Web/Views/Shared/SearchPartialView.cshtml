@@ -1,7 +1,7 @@
 @model Vet.Web.Models.ViewModels.PageViewModel;
 <div class="row">
     <div class="col-md-12">
-       <form class="form" asp-action="Index" asp-controller="Owner" method="get">
+       <form class="form" asp-action="@Model.PageAction" asp-controller="@Model.PageController" method="get">
         <input type="hidden" value="@Model.Pager.CurrentPage" name="page">
         <div class="input-group mb-3">
             <input type="text" class="form-control" value="@Model.Search" placeholder="Serach" name="search">

@@ -16,9 +16,16 @@ namespace Vet.DBContext
         }
          protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Breeds>()
-                .HasOne(p => p.Animal)
-                .WithMany(b => b.Breeds);
+            modelBuilder.Entity<Animal>().HasData(
+                new Animal(){Id=1,Name="Dog"}
+                ,new Animal(){Id=2,Name="Cat"}
+            );
+            modelBuilder.Entity<ItemType>().HasData(
+                new ItemType(){Id=1,Name="Vaccine"}
+                ,new ItemType(){Id=2,Name="Tablet"}
+                ,new ItemType(){Id=3,Name="Capsules"}
+                ,new ItemType(){Id=4,Name="Injections"}
+            );      
         }
         public DbSet<Breeds> Breeds { get; set; }
         public DbSet<Animal> Animals { get; set; }
@@ -32,8 +39,11 @@ namespace Vet.DBContext
         public DbSet<Items> Items { get; set; }
         public DbSet<Owners> Owners { get; set; }
 
-        public DbSet<Transactions> Transactions{get;set;}
+        public DbSet<ItemType> Types{get;set;}
         
+        public DbSet<Prescription> Prescriptions{get;set;}
+
+        public DbSet<Vacination> Vacinations{get;set;}
         
 
 

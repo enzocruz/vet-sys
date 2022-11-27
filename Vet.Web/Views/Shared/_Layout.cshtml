@@ -35,6 +35,17 @@
                          <li class="nav-item active">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Owner" asp-action="Index">Owner</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown">
+                                Items
+                            </a>
+                            <ul class="dropdown-menu" >
+                                <li><a class="dropdown-item" asp-action="Index"
+                                asp-controller="Item">Items</a></li>
+                                <li><a class="dropdown-item" 
+                                asp-action="Index" asp-controller="ItemType">Item Type</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

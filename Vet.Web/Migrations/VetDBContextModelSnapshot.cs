@@ -41,6 +41,20 @@ namespace Vet.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Animals");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 11, 27, 22, 18, 31, 179, DateTimeKind.Local).AddTicks(8780),
+                            Name = "Dog"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2022, 11, 27, 22, 18, 31, 179, DateTimeKind.Local).AddTicks(8810),
+                            Name = "Cat"
+                        });
                 });
 
             modelBuilder.Entity("Vet.Web.Models.Appointment", b =>
@@ -57,9 +71,15 @@ namespace Vet.Web.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
                     b.Property<string>("Reason")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -147,20 +167,14 @@ namespace Vet.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Hydration")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("ItemID")
-                        .HasColumnType("int");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int?>("PetsId")
                         .HasColumnType("int");
 
                     b.Property<double>("Temperature")
                         .HasColumnType("double");
-
-                    b.Property<string>("Vacination")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -186,6 +200,9 @@ namespace Vet.Web.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
 
+                    b.Property<int>("ItemTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -194,12 +211,62 @@ namespace Vet.Web.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("double");
 
-                    b.Property<int>("Stocks")
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemTypeId");
+
+                    b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("Vet.Web.Models.ItemType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items");
+                    b.ToTable("Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 11, 27, 22, 18, 31, 179, DateTimeKind.Local).AddTicks(8890),
+                            Name = "Vaccine"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2022, 11, 27, 22, 18, 31, 179, DateTimeKind.Local).AddTicks(8900),
+                            Name = "Tablet"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2022, 11, 27, 22, 18, 31, 179, DateTimeKind.Local).AddTicks(8900),
+                            Name = "Capsules"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2022, 11, 27, 22, 18, 31, 179, DateTimeKind.Local).AddTicks(8900),
+                            Name = "Injections"
+                        });
                 });
 
             modelBuilder.Entity("Vet.Web.Models.Owners", b =>
@@ -250,8 +317,8 @@ namespace Vet.Web.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateOnly>("DOB")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DOB")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -273,13 +340,10 @@ namespace Vet.Web.Migrations
                     b.ToTable("Pets");
                 });
 
-            modelBuilder.Entity("Vet.Web.Models.Transactions", b =>
+            modelBuilder.Entity("Vet.Web.Models.Prescription", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("Count")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -287,23 +351,51 @@ namespace Vet.Web.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<int>("HistoryID")
+                        .HasColumnType("int");
 
                     b.Property<int>("ItemID")
                         .HasColumnType("int");
 
-                    b.Property<double?>("Price")
-                        .HasColumnType("double");
-
-                    b.Property<short>("Type")
-                        .HasColumnType("smallint");
+                    b.Property<int>("PetID")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemID");
+                    b.HasIndex("HistoryID");
 
-                    b.ToTable("Transactions");
+                    b.HasIndex("PetID");
+
+                    b.ToTable("Prescriptions");
+                });
+
+            modelBuilder.Entity("Vet.Web.Models.Vacination", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("HistoryID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PetID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HistoryID");
+
+                    b.HasIndex("PetID");
+
+                    b.ToTable("Vacinations");
                 });
 
             modelBuilder.Entity("Vet.Web.Models.Breeds", b =>
@@ -332,6 +424,17 @@ namespace Vet.Web.Migrations
                     b.Navigation("Vet");
                 });
 
+            modelBuilder.Entity("Vet.Web.Models.Items", b =>
+                {
+                    b.HasOne("Vet.Web.Models.ItemType", "Type")
+                        .WithMany("Items")
+                        .HasForeignKey("ItemTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Type");
+                });
+
             modelBuilder.Entity("Vet.Web.Models.Pets", b =>
                 {
                     b.HasOne("Vet.Web.Models.Breeds", "Breed")
@@ -341,7 +444,7 @@ namespace Vet.Web.Migrations
                         .IsRequired();
 
                     b.HasOne("Vet.Web.Models.Owners", "Owner")
-                        .WithMany()
+                        .WithMany("Pets")
                         .HasForeignKey("OwnerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -351,15 +454,42 @@ namespace Vet.Web.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Vet.Web.Models.Transactions", b =>
+            modelBuilder.Entity("Vet.Web.Models.Prescription", b =>
                 {
-                    b.HasOne("Vet.Web.Models.Items", "Item")
+                    b.HasOne("Vet.Web.Models.History", "History")
                         .WithMany()
-                        .HasForeignKey("ItemID")
+                        .HasForeignKey("HistoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Item");
+                    b.HasOne("Vet.Web.Models.Pets", "Pet")
+                        .WithMany()
+                        .HasForeignKey("PetID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("History");
+
+                    b.Navigation("Pet");
+                });
+
+            modelBuilder.Entity("Vet.Web.Models.Vacination", b =>
+                {
+                    b.HasOne("Vet.Web.Models.History", "History")
+                        .WithMany()
+                        .HasForeignKey("HistoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Vet.Web.Models.Pets", "Pet")
+                        .WithMany()
+                        .HasForeignKey("PetID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("History");
+
+                    b.Navigation("Pet");
                 });
 
             modelBuilder.Entity("Vet.Web.Models.Animal", b =>
@@ -368,6 +498,16 @@ namespace Vet.Web.Migrations
                 });
 
             modelBuilder.Entity("Vet.Web.Models.Breeds", b =>
+                {
+                    b.Navigation("Pets");
+                });
+
+            modelBuilder.Entity("Vet.Web.Models.ItemType", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Vet.Web.Models.Owners", b =>
                 {
                     b.Navigation("Pets");
                 });

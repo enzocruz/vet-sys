@@ -57,7 +57,7 @@ namespace Vet.Web.Controllers
         public IActionResult Edit(EditOwnerViewModel model){
              
             try{
-                Console.WriteLine($"ID:{model.Id}");  
+                
                 if(ModelState.IsValid){
                     var p=_db.Owners.Find(model.Id);
 

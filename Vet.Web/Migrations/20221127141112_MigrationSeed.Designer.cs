@@ -11,8 +11,8 @@ using Vet.DBContext;
 namespace Vet.Web.Migrations
 {
     [DbContext(typeof(VetDBContext))]
-    [Migration("20221023110912_EntityMigrations")]
-    partial class EntityMigrations
+    [Migration("20221127141112_MigrationSeed")]
+    partial class MigrationSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,6 +28,8 @@ namespace Vet.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
@@ -35,11 +37,26 @@ namespace Vet.Web.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Animals");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 11, 27, 22, 11, 12, 163, DateTimeKind.Local).AddTicks(6540),
+                            Name = "Dog"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2022, 11, 27, 22, 11, 12, 163, DateTimeKind.Local).AddTicks(6570),
+                            Name = "Cat"
+                        });
                 });
 
             modelBuilder.Entity("Vet.Web.Models.Appointment", b =>
@@ -51,9 +68,20 @@ namespace Vet.Web.Migrations
                     b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
                     b.Property<string>("Reason")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -70,11 +98,14 @@ namespace Vet.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
@@ -91,19 +122,28 @@ namespace Vet.Web.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("License")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
 
@@ -117,6 +157,8 @@ namespace Vet.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Diagnosis")
@@ -127,19 +169,14 @@ namespace Vet.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Hydration")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("ItemID")
-                        .HasColumnType("int");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int?>("PetsId")
                         .HasColumnType("int");
 
                     b.Property<double>("Temperature")
                         .HasColumnType("double");
-
-                    b.Property<string>("Vacination")
-                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -156,22 +193,82 @@ namespace Vet.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Description")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("ItemTypeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<double>("Price")
                         .HasColumnType("double");
 
-                    b.Property<int>("Stocks")
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemTypeId");
+
+                    b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("Vet.Web.Models.ItemType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items");
+                    b.ToTable("Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 11, 27, 22, 11, 12, 163, DateTimeKind.Local).AddTicks(6680),
+                            Name = "Vaccine"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2022, 11, 27, 22, 11, 12, 163, DateTimeKind.Local).AddTicks(6680),
+                            Name = "Tablet"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2022, 11, 27, 22, 11, 12, 163, DateTimeKind.Local).AddTicks(6680),
+                            Name = "Capsules"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2022, 11, 27, 22, 11, 12, 163, DateTimeKind.Local).AddTicks(6680),
+                            Name = "Injections"
+                        });
                 });
 
             modelBuilder.Entity("Vet.Web.Models.Owners", b =>
@@ -182,15 +279,23 @@ namespace Vet.Web.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ContactNumber")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
@@ -210,20 +315,23 @@ namespace Vet.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateOnly>("DOB")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DOB")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("OwnerID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Sex")
-                        .HasColumnType("int");
+                    b.Property<short>("Sex")
+                        .HasColumnType("smallint");
 
                     b.HasKey("Id");
 
@@ -232,37 +340,6 @@ namespace Vet.Web.Migrations
                     b.HasIndex("OwnerID");
 
                     b.ToTable("Pets");
-                });
-
-            modelBuilder.Entity("Vet.Web.Models.Transactions", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("ItemID")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("Price")
-                        .HasColumnType("double");
-
-                    b.Property<short>("Type")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemID");
-
-                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("Vet.Web.Models.Breeds", b =>
@@ -291,6 +368,17 @@ namespace Vet.Web.Migrations
                     b.Navigation("Vet");
                 });
 
+            modelBuilder.Entity("Vet.Web.Models.Items", b =>
+                {
+                    b.HasOne("Vet.Web.Models.ItemType", "Type")
+                        .WithMany("Items")
+                        .HasForeignKey("ItemTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Type");
+                });
+
             modelBuilder.Entity("Vet.Web.Models.Pets", b =>
                 {
                     b.HasOne("Vet.Web.Models.Breeds", "Breed")
@@ -300,7 +388,7 @@ namespace Vet.Web.Migrations
                         .IsRequired();
 
                     b.HasOne("Vet.Web.Models.Owners", "Owner")
-                        .WithMany()
+                        .WithMany("Pets")
                         .HasForeignKey("OwnerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -310,23 +398,22 @@ namespace Vet.Web.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Vet.Web.Models.Transactions", b =>
-                {
-                    b.HasOne("Vet.Web.Models.Items", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Item");
-                });
-
             modelBuilder.Entity("Vet.Web.Models.Animal", b =>
                 {
                     b.Navigation("Breeds");
                 });
 
             modelBuilder.Entity("Vet.Web.Models.Breeds", b =>
+                {
+                    b.Navigation("Pets");
+                });
+
+            modelBuilder.Entity("Vet.Web.Models.ItemType", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Vet.Web.Models.Owners", b =>
                 {
                     b.Navigation("Pets");
                 });

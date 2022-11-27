@@ -1,8 +1,58 @@
-
+@model IEnumerable<Vet.Web.Models.Items>
 @{
-    ViewData["Title"] = "Index";
-    Layout = "Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Items";
+    ViewData["Page"]="Item";
+    Vet.Web.Models.ViewModels.PageViewModel pageViewModel=ViewBag.PageViewModel;
+
 }
+<h3>Items</h3>
+<div class="row">
+    <div class="col-md-12">
+         <a class="btn btn-outline-success"  asp-controller="Item" asp-action="Create">Add Item</a>
+    </div>
+</div>
+<br/>
 
-<h1>Index</h1>
+@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+<br/>
 
+@Html.Partial("~/Views/Shared/SearchPartialView.cshtml",pageViewModel)
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+           <tr>
+                <th>&nbsp;</th>
+                <th>Name</th>
+                <th>Descriptions</th>
+                <th>Type</th>   
+                <th>&nbsp;</th>
+           </tr>
+           <tbody>
+                 @foreach (var items in Model.Select((f,index)=>new{item=f,index=index}))
+                {
+                    <tr>
+                        <td>@Html.Raw(items.index+1)</td>
+                        <td>@items.item.Name</td>
+                        <td>@items.item.Description</td>
+                        <td>@items.item.Type?.Name</td>
+                        
+                        <td>
+                            <a asp-action="Edit" asp-controller="Item"
+                                asp-route-id="@items.item.Id"
+                                class="btn btn-outline-success"
+                            >
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                }
+           </tbody>
+          
+        </table>
+    </div>
+</div>
+
+<br/>
+
+@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+<br/>
