@@ -24,6 +24,7 @@
                 <th>&nbsp;</th>
                 <th>Name</th>
                 <th>Descriptions</th>
+                <th>Price</th>
                 <th>Type</th>   
                 <th>&nbsp;</th>
            </tr>
@@ -34,6 +35,7 @@
                         <td>@Html.Raw(items.index+1)</td>
                         <td>@items.item.Name</td>
                         <td>@items.item.Description</td>
+                        <td>@Html.Raw("PHP."+items.item.Price)</td>
                         <td>@items.item.Type?.Name</td>
                         
                         <td>

@@ -39,20 +39,21 @@
       $("input").val("");
       $("#Name").html("");
     }
-    var myModalEl = document.getElementById('owner-modal')
+    var myModalEl = document.getElementById('type-modal')
     var modal = bootstrap.Modal.getInstance(myModalEl)
     myModalEl.addEventListener('hidden.bs.modal', function (event) {
       close();
      
       
     })
-     $("#TypeCreate").on("submit",function(){
+    $("#typeForm").on("submit",function(){
+    alert("Sets");
     event.preventDefault();
     
     $.ajax({
                 type: "POST",
                 url: this.action,
-                data:  $("#TypeCreate").serialize(),
+                data:  $("#typeForm").serialize(),
                 success: function(data) {
                     
                     if(data.success==false){
@@ -78,7 +79,7 @@
                   
                 }
             });
-  });
+      });
   })
 </script>
 

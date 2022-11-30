@@ -1,7 +1,7 @@
 @model Vet.Web.Models.ViewModels.ItemsViewModel
 @{
-    ViewData["Title"]="Create Breeds";
-    ViewData["Page"]="Animal";
+    ViewData["Title"]="Items ";
+    ViewData["Page"]="Itmes";
 }
 @section styles{
 <link rel="stylesheet" href="~/lib/selectjs/dist/css/select2.min.css" />
@@ -18,7 +18,13 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Price</label>
-                <input type="text" class="form-control" name="Price" value="@Model.Price"/>    
+                <div class="input-group mb-3">
+                    <span class="input-group-text" >PHP.</span>
+                  <input type="number" class="form-control" 
+                  step="0.01"
+                  name="Price" value="@Model.Price"/>  
+                </div>
+                  
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="mb-3">

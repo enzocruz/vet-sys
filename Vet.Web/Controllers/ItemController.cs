@@ -57,7 +57,78 @@ namespace Vet.Web.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult TypeCreate(ItemTypeViewModel model){
+            ItemType data=new ItemType(){
+                Name=model.Name
+                ,Description=model.Description
+            };
+            if(!ModelState.IsValid){
+                return Json(new {Success=false,Errors=ModelState.Where(f=>f.Value.Errors.Count()>=1)
+                .Select(f=>new {Key=f.Key,MSG=f.Value.Errors.ToList()})
+                });
+            }else{
+                try{
+                    _db.Types.Add(data);
+                    _db.SaveChanges();
+                }catch(Exception ex){
+                    ModelState.AddModelError("Exception",ex.InnerException.Message);
+                    return Json(new {Success=false,Errors=ModelState.Where(f=>f.Value.Errors.Count()>=1)
+                    .Select(f=>new {Key=f.Key,MSG=f.Value.Errors.ToList()})
+                    });
+                }
+               
+            }
+            
+            return Json(new {Success=true,Data=data});
+        }
+        [HttpGet]
+        public IActionResult Edit(int id){
+            var TypeList=_db.Types.ToList();
+            ItemsViewModel model=new ItemsViewModel();
+            var item=_db.Items.Find(id);
+
+            if(item!=null){
+                model.Id=item.Id;
+                model.Name=item.Name;
+                model.Description=item.Description;
+                model.TypeID=item.Id;
+                model.Price=item.Price;
+                model.Types=_db.Types.ToList();
+
+
+            }else {
+                return RedirectToAction("index");
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult Edit(ItemsViewModel model){
+            if(ModelState.IsValid){
+                model.Types=_db.Types.ToList();
+                Items item=new Items();
+                item=_db.Items.Find(model.Id);
+                try{
+                    if(item!=null){
+                        item.Name=model.Name;
+                        item.ItemTypeId=model.TypeID;
+                        item.Description=model.Description;
+                        item.Price=model.Price;
+                        _db.Items.Update(item);
+                        _db.SaveChanges();
+                    }
+                }
+                catch(Exception ex){
+                    ModelState.AddModelError("Exception",ex.InnerException.Message);
+                    return View(model);
+                }
+                return RedirectToAction("index");
+
+            }
+            return View(model);
+        }
         
 
-    }
-}
+    }//end of class
+
+    
+}//end of namespace
