@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Vet.Web.Models;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 namespace Vet.DBContext
 {
-    public class VetDBContext : DbContext
+    public class VetDBContext : IdentityDbContext
     {
         public VetDBContext (DbContextOptions<VetDBContext> options)
             : base(options)
@@ -16,6 +17,25 @@ namespace Vet.DBContext
         }
          protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            var user=new IdentityUser("admin"){
+                Email="test@gmail.com"
+                ,UserName="admin"
+              
+            };
+            /*PasswordHasher<IdentityUser> ph =new PasswordHasher<IdentityUser>();
+           
+            modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
+            {
+                Id = "cdd3dc99-b409-45b0-a682-c3441d677a0d",
+                UserName = "admin",
+                NormalizedUserName = "admin",
+                Email = "test@gmail.com",
+                NormalizedEmail = "test@gmail.com",
+                EmailConfirmed = true,
+                PasswordHash ="p@$$w0rd",
+                SecurityStamp = string.Empty
+            });*/
             modelBuilder.Entity<Animal>().HasData(
                 new Animal(){Id=1,Name="Dog"}
                 ,new Animal(){Id=2,Name="Cat"}

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Vet.DBContext;
+using Microsoft.AspNetCore.Authorization;
 namespace Vet.Web.Controllers
 {
-
+    [Authorize]
     public class AppointmentController : Controller
     {
         private VetDBContext _db;

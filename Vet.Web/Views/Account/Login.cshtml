@@ -1,0 +1,31 @@
+@model Vet.Web.Models.ViewModels.LoginViewModel
+@{
+    ViewData["Title"]="Login";
+    ViewData["Page"]="Login";
+}
+
+<div class="row">
+    <div class="offset-md-6 col-md-6">
+        <div class="card" >
+            <div class="card-header">Login</div>
+            <div class="card-body">
+                <form asp-action="Login" method="post" asp-controller="Account">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Username</label>
+                        <input type="text" class="form-control" name="Username" value="@Model.Username"/>    
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="Password" value="@Model.Password"/>    
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div asp-validation-summary="All" class="text-warning"></div>
+                    <div class="mb-3">
+                        <button class="btn btn-outline-success" type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

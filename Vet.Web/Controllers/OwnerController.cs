@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Vet.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Vet.Web.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 namespace Vet.Web.Controllers
 {
+    [Authorize]
     public class OwnerController : Controller
     {
         private VetDBContext _db;

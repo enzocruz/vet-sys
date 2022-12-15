@@ -7,9 +7,10 @@ using Vet.DBContext;
 using Vet.Web.Models.ViewModels;
 using Vet.Web.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 namespace Vet.Web.Controllers
 {
-   
+   [Authorize]
     public class ItemController : Controller
     {
         private VetDBContext _db;

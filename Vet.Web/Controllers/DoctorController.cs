@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Vet.DBContext;
 using Vet.Web.Models.ViewModels;
 using Vet.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+
 namespace Vet.Web.Controllers
 {
     
-
+    [Authorize]
     public class DoctorController : Controller
     {
         protected VetDBContext _db;

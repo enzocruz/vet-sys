@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vet.DBContext;
 
@@ -10,9 +11,10 @@ using Vet.DBContext;
 namespace Vet.Web.Migrations
 {
     [DbContext(typeof(VetDBContext))]
-    partial class VetDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221215145648_UpdateUser2")]
+    partial class UpdateUser2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,6 +132,24 @@ namespace Vet.Web.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "02050d42-541d-4e8f-b894-1cec1893f18d",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "846a3af0-6a98-4e1b-b700-d209b3a6a280",
+                            Email = "test@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "test@gamil.com",
+                            NormalizedUserName = "admin",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHlee10niOu6saS9T5GR7vfvN+to2nss6XmR8c0baukdLkHX7ed4c9gAK1LInBgBuQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -238,13 +258,13 @@ namespace Vet.Web.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2022, 12, 15, 23, 14, 27, 860, DateTimeKind.Local).AddTicks(3550),
+                            CreatedDate = new DateTime(2022, 12, 15, 22, 56, 48, 541, DateTimeKind.Local).AddTicks(850),
                             Name = "Dog"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2022, 12, 15, 23, 14, 27, 860, DateTimeKind.Local).AddTicks(3580),
+                            CreatedDate = new DateTime(2022, 12, 15, 22, 56, 48, 541, DateTimeKind.Local).AddTicks(860),
                             Name = "Cat"
                         });
                 });
@@ -438,25 +458,25 @@ namespace Vet.Web.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2022, 12, 15, 23, 14, 27, 860, DateTimeKind.Local).AddTicks(3640),
+                            CreatedDate = new DateTime(2022, 12, 15, 22, 56, 48, 541, DateTimeKind.Local).AddTicks(880),
                             Name = "Vaccine"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2022, 12, 15, 23, 14, 27, 860, DateTimeKind.Local).AddTicks(3640),
+                            CreatedDate = new DateTime(2022, 12, 15, 22, 56, 48, 541, DateTimeKind.Local).AddTicks(880),
                             Name = "Tablet"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2022, 12, 15, 23, 14, 27, 860, DateTimeKind.Local).AddTicks(3640),
+                            CreatedDate = new DateTime(2022, 12, 15, 22, 56, 48, 541, DateTimeKind.Local).AddTicks(880),
                             Name = "Capsules"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2022, 12, 15, 23, 14, 27, 860, DateTimeKind.Local).AddTicks(3650),
+                            CreatedDate = new DateTime(2022, 12, 15, 22, 56, 48, 541, DateTimeKind.Local).AddTicks(880),
                             Name = "Injections"
                         });
                 });

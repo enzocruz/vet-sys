@@ -7,6 +7,7 @@ using Vet.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Vet.Web.Models.ViewModels;
 using Vet.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 namespace Vet.Web.Controllers
 {
    

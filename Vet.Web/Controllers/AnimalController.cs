@@ -2,10 +2,12 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Vet.Web.Models;
 using Vet.DBContext;
-namespace Vet.Web.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Vet.Web.Models.ViewModels;
-using Vet.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+namespace Vet.Web.Controllers;
+
+[Authorize]
 public class Animal : Controller
 {
     private readonly ILogger<HomeController> _logger;

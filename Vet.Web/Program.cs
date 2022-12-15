@@ -1,5 +1,8 @@
 using Vet.DBContext;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +10,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<VetDBContext>(options=>
 options.UseMySql(builder.Configuration.GetConnectionString("VetDB")
 ,ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("VetDB"))));
+
+builder.Services.AddIdentity<IdentityUser,IdentityRole>()
+.AddEntityFrameworkStores<VetDBContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,7 +27,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
