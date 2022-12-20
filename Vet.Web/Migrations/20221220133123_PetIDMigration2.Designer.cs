@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vet.DBContext;
 
@@ -10,9 +11,10 @@ using Vet.DBContext;
 namespace Vet.Web.Migrations
 {
     [DbContext(typeof(VetDBContext))]
-    partial class VetDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221220133123_PetIDMigration2")]
+    partial class PetIDMigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,13 +240,13 @@ namespace Vet.Web.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2022, 12, 20, 22, 18, 54, 735, DateTimeKind.Local).AddTicks(5370),
+                            CreatedDate = new DateTime(2022, 12, 20, 21, 31, 23, 518, DateTimeKind.Local).AddTicks(1400),
                             Name = "Dog"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2022, 12, 20, 22, 18, 54, 735, DateTimeKind.Local).AddTicks(5390),
+                            CreatedDate = new DateTime(2022, 12, 20, 21, 31, 23, 518, DateTimeKind.Local).AddTicks(1440),
                             Name = "Cat"
                         });
                 });
@@ -438,25 +440,25 @@ namespace Vet.Web.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2022, 12, 20, 22, 18, 54, 735, DateTimeKind.Local).AddTicks(5460),
+                            CreatedDate = new DateTime(2022, 12, 20, 21, 31, 23, 518, DateTimeKind.Local).AddTicks(1510),
                             Name = "Vaccine"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2022, 12, 20, 22, 18, 54, 735, DateTimeKind.Local).AddTicks(5470),
+                            CreatedDate = new DateTime(2022, 12, 20, 21, 31, 23, 518, DateTimeKind.Local).AddTicks(1510),
                             Name = "Tablet"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2022, 12, 20, 22, 18, 54, 735, DateTimeKind.Local).AddTicks(5470),
+                            CreatedDate = new DateTime(2022, 12, 20, 21, 31, 23, 518, DateTimeKind.Local).AddTicks(1510),
                             Name = "Capsules"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2022, 12, 20, 22, 18, 54, 735, DateTimeKind.Local).AddTicks(5470),
+                            CreatedDate = new DateTime(2022, 12, 20, 21, 31, 23, 518, DateTimeKind.Local).AddTicks(1510),
                             Name = "Injections"
                         });
                 });
@@ -543,11 +545,6 @@ namespace Vet.Web.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
                     b.Property<int>("HistoryID")
                         .HasColumnType("int");
 
@@ -576,11 +573,6 @@ namespace Vet.Web.Migrations
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("HistoryID")
                         .HasColumnType("int");

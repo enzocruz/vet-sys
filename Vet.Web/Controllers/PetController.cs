@@ -147,5 +147,9 @@ namespace Vet.Web.Controllers
             return RedirectToAction("Index");
            
         }
+        public IActionResult CheckUp(){
+            return View();
+        }
+    
     }
 }

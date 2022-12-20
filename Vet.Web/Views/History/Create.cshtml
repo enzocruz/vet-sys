@@ -1,0 +1,154 @@
+@model Vet.Web.Models.ViewModels.CheckUpViewModel
+@{
+    ViewData["Title"]="Check up";
+    ViewData["Page"]="Pets";
+}
+@section styles{
+<link rel="stylesheet" href="~/lib/selectjs/dist/css/select2.min.css" />
+<link rel="stylesheet" href="~/lib/Datatables/datatables.css" />
+}
+
+
+<div class="container">
+      
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card" style="">
+                    
+                    <div class="card-body">
+                    <h5>Name:@Model.Pets.Name</h5>
+                    <h5>Breed:@Model.Pets.Breed.Name</h5>
+                    <h5>Date of Birth:@Model.Pets.S_DOB</h5>
+                    <h5>Owner:@Model.Pets.Owner.Name</h5>
+                    <h5>Address:@Model.Pets.Owner.Address</h5>
+                    <h5>Contact Number:@Model.Pets.Owner.ContactNumber</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <form asp-action="Create" method="post" asp-controller="History" >
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Doctor</label>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select name="DoctorId" class="form-control select" id="DoctorId" 
+                            data-show-subtext="true" data-live-search="true"
+                            asp-items='@(new SelectList(Model.Doctors,"Id", "Name",Model.DoctorId))'
+                            ></select>
+                        </div>
+                        
+                    </div>
+                    
+                    <span asp-validation-for="DoctorId" class="text-danger"></span>
+                    
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Diagnosis</label>
+                    <textarea class="form-control">@Model.Diagnosis</textarea> 
+                    <span asp-validation-for="Diagnosis" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Temperature</label>
+                    <input type="number" class="form-control" name="Temperature" step="0.1" value="@Model.Temperature"/>
+                    
+                    <span asp-validation-for="Temperature" class="text-warning"></span>
+                </div>
+                 <div class="mb-3">
+                    <label for="" class="form-label">Hydration</label>
+                    <textarea class="form-control">@Model.Hydration</textarea> 
+                    <span asp-validation-for="Hydration" class="text-danger"></span>
+                </div>
+                <hr>
+                <h6>Medication and Vacination</h6>
+                <hr>
+                <div class="row">
+                   <div class="col-md-12">
+                
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select  class="form-control select" id="med" 
+                                data-show-subtext="true" data-live-search="true"
+                                asp-items='@(new SelectList(Model.Items,"Id", "Name") )'
+                            >
+                            </select>
+
+                        </div>
+                        <div class="col-md-4">
+                            <input id="MedDesc" class="form-control"/>
+                        </div>
+                         <div class="col-md-4">
+                            <button type="button" id="addMed" class="btn btn-outline-success">Add</button>
+                        </div>
+                    </div>
+                    <br>
+                    <table class="table table-striped" id="medTab">
+                       <thead>
+                         <tr>
+                            
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                       </thead>
+                       <tbody></tbody>
+                    </table>
+                   </div>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-lg btn-outline-success" type="submit">Save </button>
+                </div>
+            </form>
+        </div>
+</div>
+
+@section Scripts{
+<script src="~/lib/Datatables/datatables.js"></script>
+   <script src="~/lib/selectjs/dist/js/select2.full.min.js"></script>
+    
+    <script>
+        var medTab=[];
+        var tab1=null;
+        $(function(){
+            $('.select').select2();
+            tab1= $('#medTab').DataTable( {
+                data: medTab
+                ,columns: [
+                   
+                    { data: 'Item' },
+                    { data: 'Description' },
+                    {render:function(){
+                        return "<button type='button' class='btn btn-sm btn-outline-danger remove'>Remove</button>"
+                    }}
+                    
+                ]
+            } );
+            medClicks(tab1);
+           
+        })
+       
+       function medClicks(table){
+         $("#addMed").click(function(){
+                medTab.push({
+                    "Id":$("#med").val()
+                    ,"Item":$("#med option:selected").text()
+                    ,"Description":$("#MedDesc").val()
+                });
+                $("#MedDesc").clear()
+              table.clear().draw();
+            
+              table.rows.add( medTab ).draw();
+             
+            });
+            $('#medTab tbody').on( 'click', 'button', function () {
+                var data = table.row( $(this).parents('tr') ).data();
+                var index=medTab.indexOf(data);
+                medTab.splice(index,1);
+                table.clear().draw();
+            
+                table.rows.add( medTab ).draw();
+            } );
+       }
+    </script>
+}

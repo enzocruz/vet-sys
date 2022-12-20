@@ -1,0 +1,68 @@
+@model Vet.Web.Models.Pets;
+@{
+    ViewData["Title"] = "History";
+    ViewData["Page"]="History";
+   Vet.Web.Models.ViewModels.PageViewModel pageViewModel=ViewBag.PageViewModel;
+}
+<div class="row">
+    <div class="col-md-12">
+         <a class="btn btn-outline-success"  asp-controller="History" asp-action="Create" asp-route-id="@Model.Id">Pet Checkup</a>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card" style="">
+            
+            <div class="card-body">
+               <h5>Name:@Model.Name</h5>
+               <h5>Breed:@Model.Breed.Name</h5>
+               <h5>Date of Birth:@Model.S_DOB</h5>
+               <h5>Owner:@Model.Owner.Name</h5>
+               <h5>Address:@Model.Owner.Address</h5>
+               <h5>Contact Number:@Model.Owner.ContactNumber</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+<br>
+@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+<br/>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+           <tr>
+                <th>Checkup Date</th>
+                <th>Vet</th>
+                <th>Diagnosis</th>
+                <th>Temparature</th>
+                <th>Hydration</th>
+           </tr>
+           <tbody>
+                 @foreach (var items in Model.MedicalHistory)
+                {
+                    <tr>
+                        <td>@items.CreatedDate</td>
+                        <td>@items.Vet.Name</td>
+                        <td>@items.Diagnosis</td>
+                        <td>@items.Temperature</td>
+                        <td>@items.Hydration</td>
+                        <td>
+                            <a class="btn btn-link">View</a>
+                        </td>
+                    </tr>
+                }
+           </tbody>
+          
+        </table>
+        <br/>
+            @Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+        <br/>
+
+    </div>
+</div>
+
+
+
+

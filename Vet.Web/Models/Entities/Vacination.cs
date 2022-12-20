@@ -10,7 +10,10 @@ public class Vacination{
     public int HistoryID{get;set;}
     [Required]
     public int ItemID{get;set;}
-
+  
+    [Required]
+    [MaxLength(255)]
+    public string Description {get;set;}
     public History History{get;set;}
 
     public Pets Pet{get;set;}

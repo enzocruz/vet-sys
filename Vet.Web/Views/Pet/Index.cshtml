@@ -43,7 +43,12 @@
                         <td>@item.S_DOB</td>
                         <td>@item.Owner.Name</td>
                         <td>@item.Breed.Name</td>
-                        <td>@item.MedicalHistory.FirstOrDefault()?.CreatedDate</td>
+                        <td>
+                            @item.MedicalHistory.FirstOrDefault()?.CreatedDate
+                            <a class="btn btn-link"
+                            asp-action="View" asp-controller="History"
+                            asp-route-id="@item.Id">View All</a>
+                        </td>
                         <td>
                             <a asp-action="Edit" asp-controller="Pet"
                             asp-route-id="@item.Id"

@@ -1,20 +1,21 @@
-namespace Vet.Web.Models;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+namespace Vet.Web.Models.ViewModels;
 
-public class History{
-    [Key]
-    public int Id { get; set; }
+public class CheckUpViewModel{
+    [ValidateNever]
+    public Pets Pets { get; set; }
 
-    [Required]
+    [ValidateNever]
+    public List<Doctor> Doctors{get;set;}
+     [Required]
     public string Diagnosis {get;set;}
     [Required]
     public int DoctorId{get;set;}
-
     [Required]
     public double Temperature{get;set;}
-    [Required]
-    public int PetID {get;set;}
-    
+ 
     [MaxLength(255,ErrorMessage ="You have exceed the maximum characters.")]
     public string? Hydration{get;set;}
  
@@ -22,7 +23,7 @@ public class History{
     [Timestamp]
     public DateTime CreatedDate{get;set;}=DateTime.Now;
 
-    public Pets Pet{get;set;}
-     public List<Prescription> Prescription{get;set;}
-     public List<Vacination> Vacination{get;set;}
+    public List<Items> Items{get;set;}
+
+   
 }
