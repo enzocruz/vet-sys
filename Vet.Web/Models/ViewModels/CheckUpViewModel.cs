@@ -5,6 +5,8 @@ namespace Vet.Web.Models.ViewModels;
 
 public class CheckUpViewModel{
     [ValidateNever]
+    public int ID{get;set;}
+    [ValidateNever]
     public Pets Pets { get; set; }
 
     [ValidateNever]
@@ -18,12 +20,14 @@ public class CheckUpViewModel{
  
     [MaxLength(255,ErrorMessage ="You have exceed the maximum characters.")]
     public string? Hydration{get;set;}
- 
-    public Doctor Vet{get;set;}
-    [Timestamp]
-    public DateTime CreatedDate{get;set;}=DateTime.Now;
+    
+    [ValidateNever]
+    public List<SelectItems<int>> Items{get;set;}
 
-    public List<Items> Items{get;set;}
-
+    [ValidateNever]
+    public List<int> IDS{get;set;}=new List<int>();
+    
+     [ValidateNever]
+    public List<string> Desc{get;set;}=new List<string>();
    
 }

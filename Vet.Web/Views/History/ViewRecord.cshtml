@@ -1,0 +1,133 @@
+@model Vet.Web.Models.History;
+@{
+    ViewData["Title"] = "History";
+    ViewData["Page"]="History";
+  
+}
+<div class="row">
+    <div class="col-md-6">
+         <a class="btn btn-outline-success"  asp-controller="History" asp-action="Create" asp-route-id="@Model.Pet.Id">Pet Checkup</a>
+    </div>
+    <div class="col-md-6">
+         <a class="btn btn-outline-success"  asp-controller="History" asp-action="ViewVac" asp-route-id="@Model.Pet.Id">Vaccination History</a>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card" style="">
+            
+            <div class="card-body">
+               <div class="row">
+                    <div class="col-md-6">
+                        <h5>Name:@Model.Pet.Name</h5>
+                    </div>
+                    <div class="col-md-3 offset-md-3">
+                        <h5>Breed:@Model.Pet.Breed.Name</h5>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="col-md-6">
+                        <h5>Date of Birth:@Model.Pet.S_DOB</h5>
+                    </div>
+                    <div class="col-md-3 offset-md-3">
+                       <h5>Owner:@Model.Pet.Owner.Name</h5>
+                    </div>
+               </div>
+                <div class="row">
+                    <div class="col-md-6">
+                       <h5>Address:@Model.Pet.Owner.Address</h5>
+                    </div>
+                    <div class="col-md-3 offset-md-3">
+                      <h5>Contact Number:@Model.Pet.Owner.ContactNumber</h5>
+                    </div>
+               </div>
+               
+               
+               
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+<br/>
+<div class="row">
+    <div class="col-md-4">
+       <h4>Vet: @Model.Vet</h4>
+    </div>
+    <div class="col-md-4 ">
+        <h4>Temperature: @Html.Raw(string.Format("{0} °C",Model.Temperature))</h4>
+    </div>
+    <div class="col-md-4 ">
+        <h4>Date: @Model.CreatedDate.ToString("yyy-MM-dd hh:mm:ss tt")</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="mb-3">
+        <label for="" class="form-label">Diagnosis</label>
+        <textarea name="Hydration" class="form-control" disabled>@Model.Diagnosis</textarea> 
+        
+    </div>
+</div>
+<div class="row">
+    <div class="mb-3">
+        <label for="" class="form-label">Hydration</label>
+        <textarea name="Hydration" class="form-control" disabled>@Model.Hydration</textarea> 
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Prescription</h4>
+        <table class="table table-striped">
+           <thead>
+                <tr >
+                    <th>&nbsp;</th>
+                    <th>Medicine</th>
+                    <th>Type</th>
+                    <th>Dosage</th>
+                </tr>
+           </thead>
+           <tbody>
+                @foreach (var item in Model.Prescription.Select((v,i)=>new {item=v,index=i}))
+                {
+                    <tr>
+                        <td>@Html.Raw(string.Format("{0}",item.index+1))</td>
+                        <td>@item.item.Item.Name</td>
+                        <td>@item.item.Item.Type.Name</td>
+                        <td>@item.item.Item.Description</td>
+                    </tr>
+                }
+           </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h4>Vaccination</h4>
+        <table class="table table-striped">
+           <thead>
+                <tr >
+                    <th>&nbsp;</th>
+                    <th>Medicine</th>
+                    <th>Type</th>
+                    <th>Dosage</th>
+                </tr>
+           </thead>
+           <tbody>
+                @foreach (var item in Model.Vacination.Select((v,i)=>new {item=v,index=i}))
+                {
+                    <tr>
+                        <td>@Html.Raw(string.Format("{0}",item.index+1))</td>
+                        <td>@item.item.Item.Name</td>
+                        <td>@item.item.Item.Type.Name</td>
+                        <td>@item.item.Item.Description</td>
+                    </tr>
+                }
+           </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+

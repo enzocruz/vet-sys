@@ -5,8 +5,11 @@
    Vet.Web.Models.ViewModels.PageViewModel pageViewModel=ViewBag.PageViewModel;
 }
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
          <a class="btn btn-outline-success"  asp-controller="History" asp-action="Create" asp-route-id="@Model.Id">Pet Checkup</a>
+    </div>
+    <div class="col-md-6">
+         <a class="btn btn-outline-success"  asp-controller="History" asp-action="ViewVac" asp-route-id="@Model.Id">Vaccination History</a>
     </div>
 </div>
 <br/>
@@ -15,12 +18,30 @@
         <div class="card" style="">
             
             <div class="card-body">
-               <h5>Name:@Model.Name</h5>
-               <h5>Breed:@Model.Breed.Name</h5>
-               <h5>Date of Birth:@Model.S_DOB</h5>
-               <h5>Owner:@Model.Owner.Name</h5>
-               <h5>Address:@Model.Owner.Address</h5>
-               <h5>Contact Number:@Model.Owner.ContactNumber</h5>
+               <div class="row">
+                    <div class="col-md-6">
+                        <h5>Name:@Model.Name</h5>
+                    </div>
+                    <div class="col-md-3 offset-md-3">
+                        <h5>Breed:@Model.Breed.Name</h5>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="col-md-6">
+                        <h5>Date of Birth:@Model.S_DOB</h5>
+                    </div>
+                    <div class="col-md-3 offset-md-3">
+                       <h5>Owner:@Model.Owner.Name</h5>
+                    </div>
+               </div>
+                <div class="row">
+                    <div class="col-md-6">
+                       <h5>Address:@Model.Owner.Address</h5>
+                    </div>
+                    <div class="col-md-3 offset-md-3">
+                      <h5>Contact Number:@Model.Owner.ContactNumber</h5>
+                    </div>
+               </div>  
             </div>
         </div>
     </div>
@@ -38,18 +59,19 @@
                 <th>Diagnosis</th>
                 <th>Temparature</th>
                 <th>Hydration</th>
+                <th>&nbsp;</th>
            </tr>
            <tbody>
                  @foreach (var items in Model.MedicalHistory)
                 {
                     <tr>
-                        <td>@items.CreatedDate</td>
+                        <td>@items.CreatedDate.ToString("yyy-MM-dd hh:mm:ss tt")</td>
                         <td>@items.Vet.Name</td>
                         <td>@items.Diagnosis</td>
                         <td>@items.Temperature</td>
                         <td>@items.Hydration</td>
                         <td>
-                            <a class="btn btn-link">View</a>
+                            <a class="btn btn-link" asp-action="ViewRecord" asp-controller="History" asp-route-id="@items.Id">View</a>
                         </td>
                     </tr>
                 }

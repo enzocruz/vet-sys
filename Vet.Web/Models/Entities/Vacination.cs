@@ -20,6 +20,7 @@ public class Vacination{
     [Timestamp]
     public DateTime CreatedDate{get;set;}=DateTime.Now;
 
+    public Items Item{get;set;}
 
 
 
