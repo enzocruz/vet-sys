@@ -1,0 +1,26 @@
+@model Vet.Web.Models.Appointment
+@{
+    ViewData["Title"]="Appointment";
+    ViewData["Page"]="Appointment";
+}
+
+<h3>Appointments</h3>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" >
+                <div class="card-header">
+                    @Html.Raw(string.Format("({0}) {1} ",Model.AppointmentDate.ToString("yyy-MM-dd hh:mm tt"),Model.Name))
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Name</h5>
+                    <p class="card-text">Reason:@Model.Reason</p>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

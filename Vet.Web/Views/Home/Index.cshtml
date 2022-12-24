@@ -1,4 +1,59 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
+@model List<Vet.Web.Models.ViewModels.CalendarEventViewModel>;
+
+<div class="row">
+    <div class="offset-md-8 col-md-4">
+        <a class="btn btn-outline-success" asp-action="create" asp-controller="Appointment">Add Appointment</a>
+        <button class="btn btn-outline-info" id="mon">Month</button>
+        <button class="btn btn-outline-info" id="list">List</button>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+         <div id='calendar'></div>
+    </div>
+</div>
+@section Scripts{
+  <script src="~/lib/fullcalendar/dist/index.global.js"></script>
+    <script>
+        var d=@Html.Raw(Json.Serialize(Model));
+        console.log(d);
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                 contentHeight: 600,
+                events:d
+                ,eventTimeFormat: { // like '14:30:00'
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    meridiem: false
+                }
+                ,eventColor: '#378006'
+                ,eventClick: function(info) {
+                    info.jsEvent.preventDefault(); // don't let the browser navigate
+                   
+                    window.open("/Appointment/view/"+info.event.id);
+                }
+            });
+            calendar.render();
+            $("#list").click(function(){
+               
+                calendar.changeView('timeGridDay');
+            });
+             $("#mon").click(function(){
+               
+                calendar.changeView('dayGridMonth');
+            });
+        });
+      
+       
+    </script>
+}
+
+
+
 

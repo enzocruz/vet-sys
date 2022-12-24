@@ -30,7 +30,7 @@ namespace Vet.Web.Controllers
                 var result= await _signInManger.PasswordSignInAsync(model.Username,model.Password,true,false);
                 if(result.Succeeded){
                     
-                    return RedirectToAction("index","Pet");
+                    return RedirectToAction("index","home");
                 }
                 ModelState.AddModelError(string.Empty,"Login attempted failed.");
                 

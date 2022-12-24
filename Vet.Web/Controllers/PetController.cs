@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Vet.Web.Controllers
 {
    
+   [Authorize]
     public class PetController : Controller
     {
         private readonly VetDBContext _db;
