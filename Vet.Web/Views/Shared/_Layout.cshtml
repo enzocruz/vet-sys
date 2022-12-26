@@ -10,9 +10,17 @@
     <link rel="stylesheet" href="~/Vet.Web.styles.css" asp-append-version="true" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-image:url('/Images/bk.jpeg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;  
+            background-size: cover;
+        }
+    </style>
     @await RenderSectionAsync("styles",required:false)
 </head>
-<body>
+<body >
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container">
@@ -86,7 +94,9 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+  
+    <div class="container" style="background: white;">
+        <br>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
