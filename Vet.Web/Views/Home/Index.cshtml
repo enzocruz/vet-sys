@@ -2,17 +2,20 @@
     ViewData["Title"] = "Home";
 }
 @model List<Vet.Web.Models.ViewModels.CalendarEventViewModel>;
-<div class="row">
-    <div class="col-md-6">
-        <a class="btn btn-outline-success" asp-action="create" asp-controller="Appointment">Add Appointment</a>
-        <button class="btn btn-outline-info" id="mon">Month</button>
-        <button class="btn btn-outline-info" id="list">List</button>
-    </div>
+<div style="background: white;">
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-outline-success" asp-action="create" asp-controller="Appointment">Add Appointment</a>
+            <button class="btn btn-outline-info" id="mon">Month</button>
+            <button class="btn btn-outline-info" id="list">List</button>
+        </div>
 
-</div>
-<div class="row">
-    <div class="col-md-12">
-         <div id='calendar'></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id='calendar'></div>
+        </div>
     </div>
 </div>
 @section Scripts{

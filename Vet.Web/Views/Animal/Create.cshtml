@@ -6,63 +6,66 @@
 @section styles{
 <link rel="stylesheet" href="~/lib/selectjs/dist/css/select2.min.css" />
 }
-<h3>Breed Forms</h3>
-<br>
-<div class="container">
-        <div class="row">
-            <form asp-action="Create" method="post" asp-controller="Animal" >
-            <div class="mb-3">
-                <label for="" class="form-label">Name</label>
-                <input type="text" class="form-control" name="Name" value="@Model.Name"/>    
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label for="formGroupExampleInput2" class="form-label">Animal</label>
+<div style="background: white;">
+        <br>
+        <h3>Breed Forms</h3>
+        <br>
+        <div class="container">
                 <div class="row">
-                    <div class="col-md-10">
+                    <form asp-action="Create" method="post" asp-controller="Animal" >
+                    <div class="mb-3">
+                        <label for="" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="Name" value="@Model.Name"/>    
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Animal</label>
+                        <div class="row">
+                            <div class="col-md-10">
+                                
+                                <select name="AnimalID" class="form-control" id="AnimalID" 
+                                data-show-subtext="true" data-live-search="true"
+                                asp-items='@(new SelectList(Model.Animals,"Id", "Name"))'
+                                ></select>
+                                
+                            
+                            
+                            </div>
+                            <div class="col-md-2">
+                                <div class="btn btn-outline-primary" id="add-animal">Add</div>
+                            </div>
+                        </div>
                         
-                        <select name="AnimalID" class="form-control" id="AnimalID" 
-                        data-show-subtext="true" data-live-search="true"
-                        asp-items='@(new SelectList(Model.Animals,"Id", "Name"))'
-                        ></select>
-                           
-                      
-                    
+                        <span asp-validation-for="AnimalID" class="text-danger"></span>
+                        
                     </div>
-                    <div class="col-md-2">
-                        <div class="btn btn-outline-primary" id="add-animal">Add</div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Description</label>
+                        <input type="text" class="form-control" name="Description" value="@Model.Description"/>
+                        
+                        <span asp-validation-for="Description" class="text-warning"></span>
+                        
                     </div>
-                </div>
-                
-                <span asp-validation-for="AnimalID" class="text-danger"></span>
-                
+                    <div class="mb-3">
+                        <button class="btn btn-success" type="submit">Save </button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="formGroupExampleInput2" class="form-label">Description</label>
-                <input type="text" class="form-control" name="Description" value="@Model.Description"/>
-                
-                <span asp-validation-for="Description" class="text-warning"></span>
-                
+        </div>
+        @Html.Partial("~/Views/Shared/AnimalPartial.cshtml",new Vet.Web.Models.ViewModels.AnimalViewModel())
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+            
+            <strong class="me-auto">Added a new records</strong>
+            
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <div class="mb-3">
-                <button class="btn btn-success" type="submit">Save </button>
+            <div class="toast-body">
+            You've successfully added a record.
             </div>
-        </form>
+        </div>
     </div>
-</div>
-@Html.Partial("~/Views/Shared/AnimalPartial.cshtml",new Vet.Web.Models.ViewModels.AnimalViewModel())
-<div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
-  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      
-      <strong class="me-auto">Added a new records</strong>
-      
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-      You've successfully added a record.
-    </div>
-  </div>
 </div>
 @section Scripts{
   <script src="~/lib/selectjs/dist/js/select2.full.min.js"></script>

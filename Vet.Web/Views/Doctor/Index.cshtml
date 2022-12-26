@@ -5,53 +5,56 @@
     Vet.Web.Models.ViewModels.PageViewModel pageViewModel=ViewBag.PageViewModel;
 
 }
-<h3>Doctors</h3>
-<div class="row">
-    <div class="col-md-12">
-         <a class="btn btn-outline-success"  asp-controller="Doctor" asp-action="Create">Add Doctors</a>
-    </div>
-</div>
-<br/>
+<div style="background: white;">
+        <br>
+        <h3>Doctors</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-outline-success"  asp-controller="Doctor" asp-action="Create">Add Doctors</a>
+            </div>
+        </div>
+        <br/>
 
-@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
-<br/>
+        @Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+        <br/>
 
-@Html.Partial("~/Views/Shared/SearchPartialView.cshtml",pageViewModel)
-<div class="row">
-    <div class="col-md-12">
-        <table class="table table-striped">
-           <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>License</th>
-                <th>Contact Number</th>
-                <th>&nbsp;</th>
-           </tr>
-           <tbody>
-                 @foreach (var items in Model)
-                {
+        @Html.Partial("~/Views/Shared/SearchPartialView.cshtml",pageViewModel)
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
                     <tr>
-                        <td>@items.Name</td>
-                        <td>@items.Address</td>
-                        <td>@items.License</td>
-                        <td>@items.Number</td>
-                        <td>
-                            <a asp-action="Edit" asp-controller="Doctor"
-                                asp-route-id="@items.Id"
-                                class="btn btn-outline-success"
-                            >
-                                Edit
-                            </a>
-                        </td>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>License</th>
+                            <th>Contact Number</th>
+                            <th>&nbsp;</th>
                     </tr>
-                }
-           </tbody>
-          
-        </table>
-    </div>
+                    <tbody>
+                            @foreach (var items in Model)
+                            {
+                                <tr>
+                                    <td>@items.Name</td>
+                                    <td>@items.Address</td>
+                                    <td>@items.License</td>
+                                    <td>@items.Number</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-controller="Doctor"
+                                            asp-route-id="@items.Id"
+                                            class="btn btn-outline-success"
+                                        >
+                                            Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+
+        <br/>
+
+        @Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+        <br/>
 </div>
-
-<br/>
-
-@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
-<br/>

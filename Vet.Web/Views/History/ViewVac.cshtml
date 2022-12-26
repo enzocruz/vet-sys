@@ -4,56 +4,57 @@
     ViewData["Page"]="History";
    Vet.Web.Models.ViewModels.PageViewModel pageViewModel=ViewBag.PageViewModel;
 }
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="card" style="">
-            
-            <div class="card-body">
-               <h5>Name:@Model.Pet.Name</h5>
-               <h5>Breed:@Model.Pet.Breed.Name</h5>
-               <h5>Date of Birth:@Model.Pet.S_DOB</h5>
-               <h5>Owner:@Model.Pet.Owner.Name</h5>
-               <h5>Address:@Model.Pet.Owner.Address</h5>
-               <h5>Contact Number:@Model.Pet.Owner.ContactNumber</h5>
+<div style="background: white;">
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="">
+                
+                <div class="card-body">
+                <h5>Name:@Model.Pet.Name</h5>
+                <h5>Breed:@Model.Pet.Breed.Name</h5>
+                <h5>Date of Birth:@Model.Pet.S_DOB</h5>
+                <h5>Owner:@Model.Pet.Owner.Name</h5>
+                <h5>Address:@Model.Pet.Owner.Address</h5>
+                <h5>Contact Number:@Model.Pet.Owner.ContactNumber</h5>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<br/>
-<br>
-@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
-<br/>
-<div class="row">
-    <div class="col-md-12">
-        <table class="table table-striped">
-           <tr>
-                <th>Vaccination Date</th>
-                <th>Vaccine</th>
-                <th>Description/Dose</th>
-                <th>Vet</th>
-           </tr>
-           <tbody>
-                 @foreach (var items in Model.Vaccination)
-                {
-                    <tr>
-                       <td>@items.CreatedDate.ToString("yyy-MM-dd hh:mm:ss tt")</td>
-                       <td>@items.Item.Name</td>
-                        <td>@items.Description</td>
-                       <td>@items.History.Vet.Name</td>
-                      
-                    </tr>
-                }
-           </tbody>
-          
-        </table>
-        <br/>
-            @Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
-        <br/>
+    <br/>
+    <br>
+    @Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+            <tr>
+                    <th>Vaccination Date</th>
+                    <th>Vaccine</th>
+                    <th>Description/Dose</th>
+                    <th>Vet</th>
+            </tr>
+            <tbody>
+                    @foreach (var items in Model.Vaccination)
+                    {
+                        <tr>
+                        <td>@items.CreatedDate.ToString("yyy-MM-dd hh:mm:ss tt")</td>
+                        <td>@items.Item.Name</td>
+                            <td>@items.Description</td>
+                        <td>@items.History.Vet.Name</td>
+                        
+                        </tr>
+                    }
+            </tbody>
+            
+            </table>
+            <br/>
+                @Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+            <br/>
 
+        </div>
     </div>
 </div>
-
 
 
 

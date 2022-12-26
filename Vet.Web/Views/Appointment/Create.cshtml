@@ -3,46 +3,48 @@
     ViewData["Title"]="New Appointment";
     ViewData["Page"]="Appointment";
 }
-
-<h3>Appointments</h3>
-<br>
-<div class="container">
-        <div class="row">
-            <form asp-action="Create" method="post" asp-controller="Appointment" >
-            <div class="mb-3">
-                <label for="" class="form-label">Name</label>
-                <input type="text" class="form-control" name="Name" value="@Model.Name"/>    
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                     <div class="mb-3">
-                        <label for="" class="form-label">Date</label>
-                        <input type="date" class="form-control" name="Date" value="@Model.Date"/>    
-                        <span asp-validation-for="Date" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-6">
+<div style="background: white;">
+    <br>
+        <h3>Appointments</h3>
+        <br>
+        <div class="container">
+                <div class="row">
+                    <form asp-action="Create" method="post" asp-controller="Appointment" >
                     <div class="mb-3">
-                        <label for="" class="form-label">Time</label>
-                        <input type="time" class="form-control" name="Time" value="@Model.Time"/>    
-                        <span asp-validation-for="Time" class="text-danger"></span>
+                        <label for="" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="Name" value="@Model.Name"/>    
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Date</label>
+                                <input type="date" class="form-control" name="Date" value="@Model.Date"/>    
+                                <span asp-validation-for="Date" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Time</label>
+                                <input type="time" class="form-control" name="Time" value="@Model.Time"/>    
+                                <span asp-validation-for="Time" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+            
+                
+                    <div class="mb-3">
+                        <label for="" class="form-label">Reason</label>
+                        <textarea class="form-control" name="Reason">@Model.Reason</textarea>
+                        <span asp-validation-for="Reason" class="text-danger"></span>
+                    </div>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="mb-3">
+                        <button class="btn btn-outline-success" type="submit">Save </button>
+                    </div>
+                </form>
             </div>
-       
-          
-             <div class="mb-3">
-                <label for="" class="form-label">Reason</label>
-                <textarea class="form-control" name="Reason">@Model.Reason</textarea>
-                <span asp-validation-for="Reason" class="text-danger"></span>
-            </div>
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="mb-3">
-                <button class="btn btn-outline-success" type="submit">Save </button>
-            </div>
-        </form>
-    </div>
+        </div>
 </div>
 
 

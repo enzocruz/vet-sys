@@ -7,114 +7,115 @@
 <link rel="stylesheet" href="~/lib/selectjs/dist/css/select2.min.css" />
 <link rel="stylesheet" href="~/lib/Datatables/datatables.css" />
 }
-
-
-<div class="container">
-      
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card" style="">
-                    
-                    <div class="card-body">
-                    <h5>Name:@Model.Pets.Name</h5>
-                    <h5>Breed:@Model.Pets.Breed.Name</h5>
-                    <h5>Date of Birth:@Model.Pets.S_DOB</h5>
-                    <h5>Owner:@Model.Pets.Owner.Name</h5>
-                    <h5>Address:@Model.Pets.Owner.Address</h5>
-                    <h5>Contact Number:@Model.Pets.Owner.ContactNumber</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br/>
-        <div class="row">
-            <form asp-action="Create" id="form-d" method="post" asp-controller="History" >
-                <input name="ID" type="hidden" value="@Model.ID">
-                <div class="mb-3">
-                    <label for="formGroupExampleInput2" class="form-label">Doctor</label>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <select name="DoctorId" class="form-control select" id="DoctorId" 
-                            data-show-subtext="true" data-live-search="true"
-                            asp-items='@(new SelectList(Model.Doctors,"Id","Name",Model.DoctorId))'
-                            ></select>
-                        </div>
-                        
-                    </div>
-                    
-                    <span asp-validation-for="DoctorId" class="text-danger"></span>
-                    
-                </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Diagnosis</label>
-                    <textarea name="Diagnosis" class="form-control">@Model.Diagnosis</textarea> 
-                    <span asp-validation-for="Diagnosis" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label for="formGroupExampleInput2" class="form-label">Temperature</label>
-                    <input type="number" class="form-control" name="Temperature" step="0.1" value="@Model.Temperature"/>
-                    
-                    <span asp-validation-for="Temperature" class="text-warning"></span>
-                </div>
-                 <div class="mb-3">
-                    <label for="" class="form-label">Hydration</label>
-                    <textarea name="Hydration" class="form-control">@Model.Hydration</textarea> 
-                    <span asp-validation-for="Hydration" class="text-danger"></span>
-                 </div>
-                <hr>
-                <h6>Medication and Vacination</h6>
-                <hr>
+<div style="background: white;">
+        <br>
+        <div class="container">
+            
                 <div class="row">
-                   <div class="col-md-12">
-                
-                    <div class="row">
-                        <div class="col-md-4">
-                          
-                            <div class="mb-3">
-                                <label for="" class="form-label">Medication/Vaccine</label>
-                                    <select  class="form-control select" id="med" 
-                                        data-show-subtext="true" data-live-search="true"
-                                        asp-items='@(new SelectList(Model.Items,"Value", "Text") )'
-                                    >
-                                </select>
+                    <div class="col-md-12">
+                        <div class="card" style="">
+                            
+                            <div class="card-body">
+                            <h5>Name:@Model.Pets.Name</h5>
+                            <h5>Breed:@Model.Pets.Breed.Name</h5>
+                            <h5>Date of Birth:@Model.Pets.S_DOB</h5>
+                            <h5>Owner:@Model.Pets.Owner.Name</h5>
+                            <h5>Address:@Model.Pets.Owner.Address</h5>
+                            <h5>Contact Number:@Model.Pets.Owner.ContactNumber</h5>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="" class="form-label">Dosage</label>
-                                <input id="MedDesc" placeholder="Dosesage"class="form-control"/>
-                            </div>
-                           
-                        </div>
-                         <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="" class="form-label">&nbsp;</label>
-                                <br>
-                                 <button type="button" id="addMed" class="btn btn-outline-success">Add</button>
-                            </div>
-                           
                         </div>
                     </div>
-                    <br>
-                    <table class="table table-striped" id="medTab">
-                       <thead>
-                         <tr>
-                            <th>&nbsp;</th>
-                            <th>Item</th>
-                            <th>Description</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                       </thead>
-                       <tbody></tbody>
-                    </table>
-                   </div>
                 </div>
-                <br>
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="mb-3">
-                    <button class="btn btn-lg btn-outline-success"  id="sub" type="submit">Save</button>
+                <br/>
+                <div class="row">
+                    <form asp-action="Create" id="form-d" method="post" asp-controller="History" >
+                        <input name="ID" type="hidden" value="@Model.ID">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">Doctor</label>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <select name="DoctorId" class="form-control select" id="DoctorId" 
+                                    data-show-subtext="true" data-live-search="true"
+                                    asp-items='@(new SelectList(Model.Doctors,"Id","Name",Model.DoctorId))'
+                                    ></select>
+                                </div>
+                                
+                            </div>
+                            
+                            <span asp-validation-for="DoctorId" class="text-danger"></span>
+                            
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Diagnosis</label>
+                            <textarea name="Diagnosis" class="form-control">@Model.Diagnosis</textarea> 
+                            <span asp-validation-for="Diagnosis" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">Temperature</label>
+                            <input type="number" class="form-control" name="Temperature" step="0.1" value="@Model.Temperature"/>
+                            
+                            <span asp-validation-for="Temperature" class="text-warning"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Hydration</label>
+                            <textarea name="Hydration" class="form-control">@Model.Hydration</textarea> 
+                            <span asp-validation-for="Hydration" class="text-danger"></span>
+                        </div>
+                        <hr>
+                        <h6>Medication and Vacination</h6>
+                        <hr>
+                        <div class="row">
+                        <div class="col-md-12">
+                        
+                            <div class="row">
+                                <div class="col-md-4">
+                                
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Medication/Vaccine</label>
+                                            <select  class="form-control select" id="med" 
+                                                data-show-subtext="true" data-live-search="true"
+                                                asp-items='@(new SelectList(Model.Items,"Value", "Text") )'
+                                            >
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Dosage</label>
+                                        <input id="MedDesc" placeholder="Dosesage"class="form-control"/>
+                                    </div>
+                                
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">&nbsp;</label>
+                                        <br>
+                                        <button type="button" id="addMed" class="btn btn-outline-success">Add</button>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                            <br>
+                            <table class="table table-striped" id="medTab">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>Item</th>
+                                    <th>Description</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            </table>
+                        </div>
+                        </div>
+                        <br>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="mb-3">
+                            <button class="btn btn-lg btn-outline-success"  id="sub" type="submit">Save</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
         </div>
 </div>
 

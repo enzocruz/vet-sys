@@ -12,7 +12,8 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
-            background-image:url('/Images/bk.jpeg');
+            background-image:url('/Images/bk2.jpeg');
+            
             background-repeat: no-repeat;
             background-attachment: fixed;  
             background-size: cover;
@@ -21,7 +22,7 @@
     @await RenderSectionAsync("styles",required:false)
 </head>
 <body >
-    <header>
+    <header style="background: white;">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Vet.Web</a>
@@ -95,16 +96,17 @@
         </nav>
     </header>
   
-    <div class="container" style="background: white;">
-        <br>
-        <main role="main" class="pb-3">
+    <div class="container" >
+       
+        <main role="main" class="pb-3" >
+            
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Vet.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Vet.Web 
         </div>
     </footer>
 

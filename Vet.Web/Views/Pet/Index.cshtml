@@ -5,65 +5,68 @@
 
 }
 @model IEnumerable<Vet.Web.Models.Pets>;
-<div class="row">
-    <div class="col-md-12">
-         <a class="btn btn-outline-success"  asp-controller="Pet" asp-action="Create">Create new Pets</a>
-    </div>
-</div>
-
-<br>
-<h3>Pets</h3>
-<br>
-@Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
-<br/>
-
-@Html.Partial("~/Views/Shared/SearchPartialView.cshtml",pageViewModel)
-<div class="continer-fluid">
+<div style="background: white ;"> 
+    <br>
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-striped">
-           <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Birthday</th>
-                <th>Owner</th>
-                <th>Breed</th>
-                <th>Last Checkup</th>
-                <td>&nbsp;</td>
-                
-           </tr>
-           <tbody>
-               @foreach (var item in Model)
-               {
-                    <tr>
-                        <td>@item.Name</td>
-                        <td>@item.Age</td>
-                        <td>@item.Sex</td>
-                        <td>@item.S_DOB</td>
-                        <td>@item.Owner.Name</td>
-                        <td>@item.Breed.Name</td>
-                        <td>
-                            @item.MedicalHistory.FirstOrDefault()?.CreatedDate
-                            <a class="btn btn-link"
-                            asp-action="View" asp-controller="History"
-                            asp-route-id="@item.Id">View All</a>
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-controller="Pet"
-                            asp-route-id="@item.Id"
-                             class="btn btn-outline-success">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-               }
-           </tbody>
-          
-        </table>
+            <a class="btn btn-outline-success"  asp-controller="Pet" asp-action="Create">Create new Pets</a>
         </div>
     </div>
 
+    <br>
+    <h3>Pets</h3>
+    <br>
+    @Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
+    <br/>
+
+    @Html.Partial("~/Views/Shared/SearchPartialView.cshtml",pageViewModel)
+    <div class="continer-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Sex</th>
+                            <th>Birthday</th>
+                            <th>Owner</th>
+                            <th>Breed</th>
+                            <th>Last Checkup</th>
+                            <td>&nbsp;</td>
+                            
+                    </tr>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Age</td>
+                                    <td>@item.Sex</td>
+                                    <td>@item.S_DOB</td>
+                                    <td>@item.Owner.Name</td>
+                                    <td>@item.Breed.Name</td>
+                                    <td>
+                                        @item.MedicalHistory.FirstOrDefault()?.CreatedDate
+                                        <a class="btn btn-link"
+                                        asp-action="View" asp-controller="History"
+                                        asp-route-id="@item.Id">View All</a>
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-controller="Pet"
+                                        asp-route-id="@item.Id"
+                                        class="btn btn-outline-success">
+                                            Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                        }
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+
+    </div>
 </div>
 @Html.Partial("~/Views/Shared/PagerPartialView.cshtml",pageViewModel)
 
